@@ -9,6 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -21,8 +22,14 @@ import com.example.betteradminapp.ui.navigation.BetterAdminNavHost
  */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BetterAdminApp(navController: NavHostController = rememberNavController()) {
-    BetterAdminNavHost(navController = navController)
+fun BetterAdminApp(
+    windowSize: WindowWidthSizeClass,
+    navController: NavHostController = rememberNavController()
+) {
+    BetterAdminNavHost(
+        windowSize = windowSize,
+        navController = navController
+    )
 }
 
 /**
@@ -46,7 +53,7 @@ fun BetterAdminTopAppBar(
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.back_button_danish)
+                        contentDescription = stringResource(R.string.back_button)
                     )
                 }
             }

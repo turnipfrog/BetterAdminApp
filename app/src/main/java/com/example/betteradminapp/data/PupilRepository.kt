@@ -13,13 +13,7 @@ interface PupilRepository {
 
     suspend fun insertPupil(pupil: Pupil)
 
-    /**
-     * Delete item from the data source
-     */
     suspend fun deletePupil(pupil: Pupil)
 
-    /**
-     * Update item in the data source
-     */
     suspend fun updatePupil(pupil: Pupil)
 }

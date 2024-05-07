@@ -18,6 +18,9 @@ class HomeViewModel(pupilRepository: PupilRepository): ViewModel() {
     var passwordAttempt by mutableStateOf("")
         private set
 
+    var emailAttempt by mutableStateOf("")
+        private set
+
     var passwordVisible by mutableStateOf(false)
         private set
 
@@ -31,6 +34,10 @@ class HomeViewModel(pupilRepository: PupilRepository): ViewModel() {
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
+    }
+
+    fun updateEmailAttempt(input: String) {
+        emailAttempt = input
     }
 
     fun updatePasswordAttempt(input: String) {

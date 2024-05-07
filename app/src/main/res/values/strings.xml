@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">BetterAdminApp</string>
-    <string name="back_button_danish">Tilbage</string>
-    <string name="login_danish">Indtast email og password</string>
+    <string name="back_button">Tilbage</string>
+    <string name="login">Log ind</string>
     <string name="password">Password</string>
-    <string name="show_password_danish">Vis password</string>
-    <string name="hide_password_danish">Skjul password</string>
+    <string name="email">Email</string>
+    <string name="show_password">Vis password</string>
+    <string name="hide_password">Skjul password</string>
+    <string name="painterdesc_loginlogo">A logo resembling a musical note</string>
+    <string name="login_unsuccessful">Login mislykkedes.\nEmail eller password er ikke korrekt.</string>
 </resources>
