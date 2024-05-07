@@ -9,4 +9,9 @@
     <string name="hide_password">Skjul password</string>
     <string name="painterdesc_loginlogo">A logo resembling a musical note</string>
     <string name="login_unsuccessful">Login mislykkedes.\nEmail eller password er ikke korrekt.</string>
+    <string name="nav_bar_main">Hjem</string>
+    <string name="nav_bar_courses">Lektioner</string>
+    <string name="nav_bar_messages">Beskeder</string>
+    <string name="nav_bar_events">Events</string>
+    <string name="nav_bar_settings">Settings</string>
 </resources>

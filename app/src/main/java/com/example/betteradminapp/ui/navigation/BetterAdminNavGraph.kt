@@ -10,6 +10,8 @@ import com.example.betteradminapp.ui.home.HomeDestination
 import com.example.betteradminapp.ui.home.HomeScreen
 import com.example.betteradminapp.ui.screens.MainDestination
 import com.example.betteradminapp.ui.screens.MainScreen
+import com.example.betteradminapp.ui.screens.SettingsDestination
+import com.example.betteradminapp.ui.screens.SettingsScreen
 
 // Provides Navigation graph for the application.
 @Composable
@@ -32,6 +34,16 @@ fun BetterAdminNavHost(
         composable(route = MainDestination.route) {
             MainScreen(
                 windowSize = windowSize,
+                navigateToMain = { navController.navigate(MainDestination.route) },
+                navigateToSettings = { navController.navigate(SettingsDestination.route) },
+                navigateUp = { navController.navigateUp() }
+            )
+        }
+        composable(route = SettingsDestination.route) {
+            SettingsScreen(
+                windowSize = windowSize,
+                navigateToMain = { navController.navigate(MainDestination.route) },
+                navigateToSettings = { navController.navigate(SettingsDestination.route) },
                 navigateUp = { navController.navigateUp() }
             )
         }

@@ -4,45 +4,35 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.betteradminapp.BetterAdminBottomNavigationBar
 import com.example.betteradminapp.BetterAdminTopAppBar
 import com.example.betteradminapp.R
-import com.example.betteradminapp.ui.AppViewModelProvider
 import com.example.betteradminapp.ui.navigation.NavigationDestination
 
-
-object MainDestination : NavigationDestination {
-    override val route = "main"
-    override val titleRes = R.string.your_page
+object SettingsDestination : NavigationDestination {
+    override val route = "settings"
+    override val titleRes = R.string.nav_bar_settings
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(
+fun SettingsScreen(
     windowSize: WindowWidthSizeClass,
     navigateToMain: () -> Unit,
     navigateToSettings: () -> Unit,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: MainViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    //viewModel: SettingsViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    val mainUiState by viewModel.mainUiState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
@@ -62,7 +52,7 @@ fun MainScreen(
             )
         }
     ) { innerPadding ->
-        MainBody(
+        SettingsBody(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -71,7 +61,7 @@ fun MainScreen(
 }
 
 @Composable
-fun MainBody(
+fun SettingsBody(
     modifier: Modifier = Modifier
 ) {
     Column(
