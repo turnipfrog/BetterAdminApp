@@ -34,5 +34,5 @@ data class Pupil(
     val road: String,
     val postalCode: String,
     @ColumnInfo(name = "guardian_email")
-    val guardianEmail: String
+    val guardianEmail: String?
     )

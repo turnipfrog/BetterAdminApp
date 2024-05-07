@@ -27,9 +27,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -106,6 +108,8 @@ fun LoginFields(
 ) {
     val context = LocalContext.current
     val loginFailedStr = stringResource(id = R.string.login_unsuccessful)
+    val focusManager = LocalFocusManager.current
+
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -140,7 +144,8 @@ fun LoginFields(
             ),
             keyboardActions = KeyboardActions(
                 onNext = {
-
+                    focusManager.moveFocus(
+                        focusDirection = FocusDirection.Next)
                 }
             )
         )
@@ -188,6 +193,6 @@ fun LoginFields(
                 }
             )
         )
-        // TODO: Button to login
+        // TODO: Button to login?
     }
 }

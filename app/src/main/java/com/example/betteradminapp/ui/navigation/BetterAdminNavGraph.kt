@@ -8,6 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.betteradminapp.ui.home.HomeDestination
 import com.example.betteradminapp.ui.home.HomeScreen
+import com.example.betteradminapp.ui.screens.MainDestination
+import com.example.betteradminapp.ui.screens.MainScreen
 
 // Provides Navigation graph for the application.
 @Composable
@@ -24,7 +26,13 @@ fun BetterAdminNavHost(
         composable(route = HomeDestination.route) {
             HomeScreen(
                 windowSize = windowSize,
-                onDonePressed = { }
+                onDonePressed = { navController.navigate(MainDestination.route) }
+            )
+        }
+        composable(route = MainDestination.route) {
+            MainScreen(
+                windowSize = windowSize,
+                navigateUp = { navController.navigateUp() }
             )
         }
     }

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.betteradminapp.BetterAdminApplication
 import com.example.betteradminapp.ui.home.HomeViewModel
+import com.example.betteradminapp.ui.screens.MainViewModel
 
 /**
  * Provides Factory to create instance of ViewModel for the entire Inventory app
@@ -17,6 +18,9 @@ object AppViewModelProvider {
         // Initializer for HomeViewModel
         initializer {
             HomeViewModel(betterAdminApplication().container.pupilRepository)
+        }
+        initializer {
+            MainViewModel(betterAdminApplication().container.pupilRepository)
         }
     }
 }

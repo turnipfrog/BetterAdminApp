@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.betteradminapp.data.model.Pupil
 
-@Database(entities = [Pupil::class], version = 1, exportSchema = false)
+@Database(entities = [Pupil::class], version = 2, exportSchema = false)
 abstract class BetterAdminDatabase : RoomDatabase() {
     abstract fun pupilDao() : PupilDao
 

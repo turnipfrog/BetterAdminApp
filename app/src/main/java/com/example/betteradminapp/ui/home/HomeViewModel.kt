@@ -1,5 +1,7 @@
 package com.example.betteradminapp.ui.home
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,10 +13,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import org.springframework.security.crypto.bcrypt.BCrypt
+import java.time.LocalDate
 
 class HomeViewModel(pupilRepository: PupilRepository): ViewModel() {
-
     var passwordAttempt by mutableStateOf("")
         private set
 
