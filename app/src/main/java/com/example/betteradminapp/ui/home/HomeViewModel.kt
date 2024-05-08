@@ -51,6 +51,11 @@ class HomeViewModel(pupilRepository: PupilRepository): ViewModel() {
         passwordVisible = !passwordVisible
     }
 
+    fun clearLoginAttempt() {
+        emailAttempt = ""
+        passwordAttempt = ""
+    }
+
     fun validateLogin(email: String, password: String): Boolean {
         val userPassword = homeUiState.value.users.find { email == it.email }?.hashedSaltedPassword
 

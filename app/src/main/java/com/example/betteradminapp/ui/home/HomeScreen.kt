@@ -183,6 +183,7 @@ fun LoginFields(
                     if (viewModel.validateLogin(viewModel.emailAttempt, viewModel.passwordAttempt))
                         {
                             onDonePressed()
+                            viewModel.clearLoginAttempt()
                         }
                      else {
                         Toast.makeText(
