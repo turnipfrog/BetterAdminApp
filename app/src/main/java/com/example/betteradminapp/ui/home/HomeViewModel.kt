@@ -1,13 +1,12 @@
 package com.example.betteradminapp.ui.home
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betteradminapp.data.PupilRepository
+import com.example.betteradminapp.data.UserPreferencesRepository
 import com.example.betteradminapp.data.model.Pupil
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,9 +14,12 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.springframework.security.crypto.bcrypt.BCrypt
-import java.time.LocalDate
 
-class HomeViewModel(pupilRepository: PupilRepository): ViewModel() {
+class HomeViewModel(
+    pupilRepository: PupilRepository,
+    private val userPreferencesRepository: UserPreferencesRepository
+): ViewModel() {
+
     var passwordAttempt by mutableStateOf("")
         private set
 
@@ -37,6 +39,10 @@ class HomeViewModel(pupilRepository: PupilRepository): ViewModel() {
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
+    }
+
+    init {
+        setCredentialsFromDataStore()
     }
 
     fun updateEmailAttempt(input: String) {
@@ -63,6 +69,20 @@ class HomeViewModel(pupilRepository: PupilRepository): ViewModel() {
             false
         else
             BCrypt.checkpw(password, userPassword)
+    }
+
+    fun storeCredentialsLocally(email: String, password: String) {
+        viewModelScope.launch {
+            userPreferencesRepository.saveEmail(email)
+            userPreferencesRepository.savePassword(password)
+        }
+    }
+
+    private fun setCredentialsFromDataStore() {
+        viewModelScope.launch {
+            emailAttempt = userPreferencesRepository.readEmail() ?: ""
+            passwordAttempt = userPreferencesRepository.readPassword() ?: ""
+        }
     }
 }
 

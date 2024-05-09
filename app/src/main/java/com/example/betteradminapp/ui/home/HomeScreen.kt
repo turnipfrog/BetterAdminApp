@@ -181,11 +181,14 @@ fun LoginFields(
             keyboardActions = KeyboardActions(
                 onDone = {
                     if (viewModel.validateLogin(viewModel.emailAttempt, viewModel.passwordAttempt))
-                        {
-                            onDonePressed()
-                            viewModel.clearLoginAttempt()
-                        }
-                     else {
+                    {
+                        onDonePressed()
+                        viewModel.storeCredentialsLocally(viewModel.emailAttempt, viewModel.passwordAttempt)
+                        //viewModel.clearLoginAttempt()
+                    }
+                    else {
+                        viewModel.storeCredentialsLocally("", "")
+                        viewModel.clearLoginAttempt()
                         Toast.makeText(
                             context, loginFailedStr,
                             Toast.LENGTH_LONG
