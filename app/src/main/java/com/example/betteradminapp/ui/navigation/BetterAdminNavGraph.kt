@@ -68,7 +68,8 @@ fun BetterAdminNavHost(
                 navigateToMessage = { navController.navigate(MessageDestination.route) },
                 navigateToEvent = { /* TODO */ },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
-                navigateUp = { navController.navigateUp() }
+                navigateUp = { navController.navigateUp() },
+                navigateToSendMessage = { /* TODO */ }
             )
         }
         composable(route = SettingsDestination.route) {

@@ -1,6 +1,7 @@
 package com.example.betteradminapp.ui.screens
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -17,14 +18,19 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Message
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -80,6 +86,7 @@ fun MessageScreen(
     navigateToEvent: () -> Unit,
     navigateToSettings: () -> Unit,
     navigateUp: () -> Unit,
+    navigateToSendMessage: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MessageViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
@@ -96,6 +103,15 @@ fun MessageScreen(
                 navigateUp = navigateUp
             )
         },
+        floatingActionButton = {
+            FloatingActionButton(
+                shape = CircleShape,
+                onClick = navigateToSendMessage,
+            ) {
+                Icon(Icons.AutoMirrored.Filled.Message, "Floating action button.")
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End,
         bottomBar = {
             BetterAdminBottomNavigationBar(
                 navigateToMain = navigateToMain,
@@ -105,7 +121,8 @@ fun MessageScreen(
                 navigateToSettings = navigateToSettings,
                 currentSelected = "message"
             )
-        }
+        },
+
     ) { innerPadding ->
         MessageBody(
             viewModel = viewModel,
@@ -205,10 +222,10 @@ fun MessageCardList(
     LazyColumn(modifier = modifier.fillMaxSize()) {
         items(items = messageList, key = { it.id }) { message ->
             val fullName: String = if (messageUiState.screenIsReceivedMessages) {
-                getTeacherNameFromEmail(message.receiverEmail)
+                getTeacherNameFromEmail(message.senderEmail)
             }
             else {
-                getTeacherNameFromEmail(message.senderEmail)
+                getTeacherNameFromEmail(message.receiverEmail)
             }
             MessageCard(
                 messageReceived = messageUiState.screenIsReceivedMessages,
@@ -226,8 +243,6 @@ fun MessageCard(
     message: Message,
     fullName: String,
     setMessageSeen: (Message) -> Unit,
-    titleFontSize: TextUnit = MaterialTheme.typography.titleLarge.fontSize,
-    titleFontWeight: FontWeight = FontWeight.Bold,
     descriptionFontSize: TextUnit = MaterialTheme.typography.titleSmall.fontSize,
     descriptionFontWeight: FontWeight = FontWeight.Normal,
     descriptionMaxLines: Int = 50,
@@ -241,8 +256,6 @@ fun MessageCard(
     )
 
     val color: Color = if (message.isNew) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant
-
-
     val prefixStr = if (messageReceived) "Fra: " else "Til: "
 
     Card(
@@ -274,16 +287,16 @@ fun MessageCard(
                     Text(
                         modifier = Modifier,
                         text = prefixStr + fullName,
-                        fontSize = titleFontSize,
-                        fontWeight = titleFontWeight,
+                        fontSize = descriptionFontSize,
+                        fontWeight = descriptionFontWeight,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
                         modifier = Modifier,
                         text = message.title,
-                        fontSize = titleFontSize,
-                        fontWeight = titleFontWeight,
+                        fontSize = descriptionFontSize,
+                        fontWeight = descriptionFontWeight,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )

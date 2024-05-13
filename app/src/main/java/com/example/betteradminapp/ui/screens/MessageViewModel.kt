@@ -1,5 +1,6 @@
 package com.example.betteradminapp.ui.screens
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betteradminapp.data.MessageRepository
