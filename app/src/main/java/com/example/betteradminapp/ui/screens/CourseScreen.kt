@@ -1,5 +1,7 @@
 package com.example.betteradminapp.ui.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -55,6 +57,7 @@ object CourseDestination : NavigationDestination {
     override val titleRes = R.string.nav_bar_courses
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CourseScreen(
@@ -88,7 +91,8 @@ fun CourseScreen(
                 navigateToCourse = navigateToCourse,
                 navigateToMessage = navigateToMessage,
                 navigateToEvent = navigateToEvent,
-                navigateToSettings = navigateToSettings
+                navigateToSettings = navigateToSettings,
+                currentSelected = "course"
             )
         }
     ) { innerPadding ->

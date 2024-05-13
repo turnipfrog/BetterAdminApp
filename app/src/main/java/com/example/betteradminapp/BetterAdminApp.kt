@@ -1,6 +1,8 @@
 package com.example.betteradminapp
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Event
@@ -27,6 +29,7 @@ import com.example.betteradminapp.ui.navigation.BetterAdminNavHost
 /**
  * Top level composable that represents screens for the application.
  */
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun BetterAdminApp(
@@ -127,37 +130,38 @@ fun BetterAdminBottomNavigationBar(
     navigateToCourse: () -> Unit,
     navigateToMessage: () -> Unit,
     navigateToEvent: () -> Unit,
-    navigateToSettings: () -> Unit
+    navigateToSettings: () -> Unit,
+    currentSelected: String
 ) {
     NavigationBar {
         NavigationBarItem(
             icon = { Icon(imageVector = Icons.Filled.Home, contentDescription = stringResource(R.string.nav_bar_main)) },
             label = { Text(stringResource(R.string.nav_bar_main)) },
-            selected = false,
+            selected = currentSelected == "main",
             onClick = navigateToMain
         )
         NavigationBarItem(
             icon = { Icon(imageVector = Icons.Filled.MusicNote, contentDescription = stringResource(R.string.nav_bar_courses)) },
             label = { Text(stringResource(R.string.nav_bar_courses)) },
-            selected = false,
+            selected = currentSelected == "course",
             onClick = navigateToCourse
         )
         NavigationBarItem(
             icon = { Icon(imageVector = Icons.Filled.Mail, contentDescription = stringResource(R.string.nav_bar_messages)) },
             label = { Text(stringResource(R.string.nav_bar_messages)) },
-            selected = false,
+            selected = currentSelected == "message",
             onClick = navigateToMessage
         )
         NavigationBarItem(
             icon = { Icon(imageVector = Icons.Filled.Event, contentDescription = stringResource(R.string.nav_bar_events)) },
             label = { Text(stringResource(R.string.nav_bar_events)) },
-            selected = false,
+            selected = currentSelected == "event",
             onClick = navigateToEvent
         )
         NavigationBarItem(
             icon = { Icon(imageVector = Icons.Filled.Settings, contentDescription = stringResource(R.string.nav_bar_settings)) },
             label = { Text(stringResource(R.string.nav_bar_settings)) },
-            selected = false,
+            selected = currentSelected == "settings",
             onClick = navigateToSettings
         )
     }

@@ -1,5 +1,7 @@
 package com.example.betteradminapp.ui.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,6 +39,7 @@ object MainDestination : NavigationDestination {
     override val titleRes = R.string.your_page
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
@@ -69,7 +72,8 @@ fun MainScreen(
                 navigateToCourse = navigateToCourse,
                 navigateToMessage = navigateToMessage,
                 navigateToEvent = navigateToEvent,
-                navigateToSettings = navigateToSettings
+                navigateToSettings = navigateToSettings,
+                currentSelected = "main"
             )
         }
     ) { innerPadding ->

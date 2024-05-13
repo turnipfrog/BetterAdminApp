@@ -54,7 +54,8 @@ fun SettingsScreen(
                 navigateToCourse = navigateToCourse,
                 navigateToMessage = navigateToMessage,
                 navigateToEvent = navigateToEvent,
-                navigateToSettings = navigateToSettings
+                navigateToSettings = navigateToSettings,
+                currentSelected = "settings"
             )
         }
     ) { innerPadding ->

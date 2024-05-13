@@ -1,5 +1,7 @@
 package com.example.betteradminapp.ui.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,10 +14,13 @@ import com.example.betteradminapp.ui.screens.CourseDestination
 import com.example.betteradminapp.ui.screens.CourseScreen
 import com.example.betteradminapp.ui.screens.MainDestination
 import com.example.betteradminapp.ui.screens.MainScreen
+import com.example.betteradminapp.ui.screens.MessageDestination
+import com.example.betteradminapp.ui.screens.MessageScreen
 import com.example.betteradminapp.ui.screens.SettingsDestination
 import com.example.betteradminapp.ui.screens.SettingsScreen
 
 // Provides Navigation graph for the application.
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun BetterAdminNavHost(
     windowSize: WindowWidthSizeClass,
@@ -38,7 +43,7 @@ fun BetterAdminNavHost(
                 windowSize = windowSize,
                 navigateToMain = { navController.navigate(MainDestination.route) },
                 navigateToCourse = { navController.navigate(CourseDestination.route) },
-                navigateToMessage = { /* TODO */ },
+                navigateToMessage = { navController.navigate(MessageDestination.route) },
                 navigateToEvent = { /* TODO */ },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
                 navigateUp = { navController.navigateUp() }
@@ -49,7 +54,18 @@ fun BetterAdminNavHost(
                 windowSize = windowSize,
                 navigateToMain = { navController.navigate(MainDestination.route) },
                 navigateToCourse = { navController.navigate(CourseDestination.route) },
-                navigateToMessage = { /* TODO */ },
+                navigateToMessage = { navController.navigate(MessageDestination.route) },
+                navigateToEvent = { /* TODO */ },
+                navigateToSettings = { navController.navigate(SettingsDestination.route) },
+                navigateUp = { navController.navigateUp() }
+            )
+        }
+        composable(route = MessageDestination.route) {
+            MessageScreen(
+                windowSize = windowSize,
+                navigateToMain = { navController.navigate(MainDestination.route) },
+                navigateToCourse = { navController.navigate(CourseDestination.route) },
+                navigateToMessage = { navController.navigate(MessageDestination.route) },
                 navigateToEvent = { /* TODO */ },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
                 navigateUp = { navController.navigateUp() }
@@ -60,7 +76,7 @@ fun BetterAdminNavHost(
                 windowSize = windowSize,
                 navigateToMain = { navController.navigate(MainDestination.route) },
                 navigateToCourse = { navController.navigate(CourseDestination.route) },
-                navigateToMessage = { /* TODO */ },
+                navigateToMessage = { navController.navigate(MessageDestination.route) },
                 navigateToEvent = { /* TODO */ },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
                 navigateUp = { navController.navigateUp() }
