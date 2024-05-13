@@ -26,6 +26,6 @@ interface TeacherDao {
     @Query("SELECT * FROM teachers WHERE email = :email")
     fun getTeacherByEmail(email: String): Flow<Teacher>
 
-    @Query("SELECT * from teachers ORDER BY id ASC")
+    @Query("SELECT * FROM teachers ORDER BY id ASC")
     fun getAllTeachers(): Flow<List<Teacher>>
 }

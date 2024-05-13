@@ -2,26 +2,47 @@ package com.example.betteradminapp.ui.screens
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.betteradminapp.data.CourseRepository
 import com.example.betteradminapp.data.PupilRepository
+import com.example.betteradminapp.data.UserPreferencesRepository
+import com.example.betteradminapp.data.model.Course
 import com.example.betteradminapp.data.model.Pupil
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
 
-class MainViewModel(pupilRepository: PupilRepository): ViewModel() {
+class MainViewModel(
+    val pupilRepository: PupilRepository,
+    val courseRepository: CourseRepository,
+    private val userPreferencesRepository: UserPreferencesRepository
+): ViewModel() {
 
-    val mainUiState: StateFlow<MainUiState> =
-        pupilRepository.getAllPupilsStream().map { MainUiState(it) }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-                initialValue = MainUiState()
-            )
+    private val _mainUiState = MutableStateFlow(
+        MainUiState()
+    )
 
-    companion object {
-        private const val TIMEOUT_MILLIS = 5_000L
+    val mainUiState: StateFlow<MainUiState> = _mainUiState
+
+    init {
+        fetchData()
+    }
+
+    private fun fetchData() {
+        viewModelScope.launch {
+            val userId = userPreferencesRepository.readUserId() ?: -1
+            val user = pupilRepository.getPupilByIdStream(userId).firstOrNull()
+            val courses = courseRepository.getCoursesByPupilIdStream(userId)
+                .firstOrNull()
+                ?.distinctBy { course -> course.courseName }
+
+            _mainUiState.value = MainUiState(userId, user, courses)
+        }
     }
 }
 
-data class MainUiState(val users: List<Pupil> = listOf())
+data class MainUiState(
+    val userId: Int? = -1,
+    val user: Pupil? = null,
+    val courses: List<Course>? = listOf()
+)

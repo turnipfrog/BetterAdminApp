@@ -30,6 +30,6 @@ interface EnrollmentDao {
     @Query("SELECT * FROM enrollments WHERE course_id = :courseId")
     fun getEnrollmentsByCourseId(courseId: Int): Flow<List<Enrollment>>
 
-    @Query("SELECT * from enrollments ORDER BY id ASC")
+    @Query("SELECT * FROM enrollments ORDER BY id ASC")
     fun getAllEnrollments(): Flow<List<Enrollment>>
 }

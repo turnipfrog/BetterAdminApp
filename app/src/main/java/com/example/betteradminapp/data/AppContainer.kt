@@ -3,6 +3,7 @@ package com.example.betteradminapp.data
 import android.content.Context
 import com.example.betteradminapp.data.local.BetterAdminDatabase
 import com.example.betteradminapp.data.local.OfflineCourseRepository
+import com.example.betteradminapp.data.local.OfflineEnrollmentRepository
 import com.example.betteradminapp.data.local.OfflinePupilRepository
 import com.example.betteradminapp.data.local.OfflineTeacherRepository
 
@@ -10,6 +11,7 @@ interface AppContainer {
     val pupilRepository: PupilRepository
     val teacherRepository: TeacherRepository
     val courseRepository: CourseRepository
+    val enrollmentRepository: EnrollmentRepository
 }
 
 class AppDataContainer(private val context: Context) : AppContainer {
@@ -21,5 +23,8 @@ class AppDataContainer(private val context: Context) : AppContainer {
     }
     override val courseRepository: CourseRepository by lazy {
         OfflineCourseRepository(BetterAdminDatabase.getDatabase(context).courseDao())
+    }
+    override val enrollmentRepository: EnrollmentRepository by lazy {
+        OfflineEnrollmentRepository(BetterAdminDatabase.getDatabase(context).enrollmentDao())
     }
 }

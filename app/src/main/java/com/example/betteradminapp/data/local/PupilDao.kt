@@ -26,6 +26,6 @@ interface PupilDao {
     @Query("SELECT * FROM pupils WHERE email = :email")
     fun getPupilByEmail(email: String): Flow<Pupil>
 
-    @Query("SELECT * from pupils ORDER BY id ASC")
+    @Query("SELECT * FROM pupils ORDER BY id ASC")
     fun getAllPupils(): Flow<List<Pupil>>
 }

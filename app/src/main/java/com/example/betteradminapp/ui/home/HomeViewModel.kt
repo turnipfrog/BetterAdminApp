@@ -43,6 +43,32 @@ class HomeViewModel(
 
     init {
         setCredentialsFromDataStore()
+
+//        val salt = BCrypt.gensalt()
+//        viewModelScope.launch {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                pupilRepository.insertPupil(
+//                    Pupil(
+//                        email = "test@test.dk",
+//                        hashedSaltedPassword = BCrypt.hashpw("test", salt),
+//                        salt = salt,
+//                        firstName = "Hund",
+//                        lastName = "Hundesen",
+//                        phoneNo = "12345678",
+//                        gender = "m",
+//                        enrollmentDate = LocalDate.of(2024, 5, 8),
+//                        note = null,
+//                        photoPermission = false,
+//                        school = "Doggy school",
+//                        grade = 2,
+//                        city = "Dogtown",
+//                        road = "Hundevej 2",
+//                        postalCode = "1234",
+//                        guardianEmail = null
+//                    )
+//                )
+//            }
+//        }
     }
 
     fun updateEmailAttempt(input: String) {
@@ -75,6 +101,7 @@ class HomeViewModel(
         viewModelScope.launch {
             userPreferencesRepository.saveEmail(email)
             userPreferencesRepository.savePassword(password)
+            userPreferencesRepository.saveUserId(homeUiState.value.users.find { email == it.email }?.id ?: -1)
         }
     }
 

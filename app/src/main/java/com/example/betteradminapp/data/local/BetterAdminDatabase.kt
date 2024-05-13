@@ -9,7 +9,7 @@ import com.example.betteradminapp.data.model.Enrollment
 import com.example.betteradminapp.data.model.Pupil
 import com.example.betteradminapp.data.model.Teacher
 
-@Database(entities = [Pupil::class, Teacher::class, Course::class, Enrollment::class], version = 4, exportSchema = false)
+@Database(entities = [Pupil::class, Teacher::class, Course::class, Enrollment::class], version = 6, exportSchema = false)
 abstract class BetterAdminDatabase : RoomDatabase() {
     abstract fun pupilDao() : PupilDao
     abstract fun teacherDao(): TeacherDao

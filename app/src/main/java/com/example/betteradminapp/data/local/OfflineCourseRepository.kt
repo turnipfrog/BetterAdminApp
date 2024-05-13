@@ -11,6 +11,8 @@ class OfflineCourseRepository(private val courseDao: CourseDao): CourseRepositor
 
     override fun getCoursesByTeacherIdStream(teacherId: Int): Flow<List<Course>> = courseDao.getCoursesByTeacherId(teacherId)
 
+    override fun getCoursesByPupilIdStream(pupilId: Int): Flow<List<Course>> = courseDao.getCoursesByPupilId(pupilId)
+
     override suspend fun insertCourse(course: Course) = courseDao.insert(course)
 
     override suspend fun deleteCourse(course: Course) = courseDao.delete(course)

@@ -26,6 +26,9 @@ interface CourseDao {
     @Query("SELECT * FROM courses WHERE teacher_id = :teacherId")
     fun getCoursesByTeacherId(teacherId: Int): Flow<List<Course>>
 
-    @Query("SELECT * from courses ORDER BY id ASC")
+    @Query("SELECT courses.id, course_name, max_enrolled, start_date, teacher_id, classroom_name FROM courses JOIN enrollments ON enrollments.course_id == courses.id WHERE pupil_id == :pupilId ORDER BY start_date ASC")
+    fun getCoursesByPupilId(pupilId: Int): Flow<List<Course>>
+
+    @Query("SELECT * FROM courses ORDER BY id ASC")
     fun getAllCourses(): Flow<List<Course>>
 }

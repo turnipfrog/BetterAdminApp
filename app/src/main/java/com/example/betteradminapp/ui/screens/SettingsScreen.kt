@@ -28,6 +28,9 @@ object SettingsDestination : NavigationDestination {
 fun SettingsScreen(
     windowSize: WindowWidthSizeClass,
     navigateToMain: () -> Unit,
+    navigateToCourse: () -> Unit,
+    navigateToMessage: () -> Unit,
+    navigateToEvent: () -> Unit,
     navigateToSettings: () -> Unit,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
@@ -39,7 +42,7 @@ fun SettingsScreen(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             BetterAdminTopAppBar(
-                title = stringResource(MainDestination.titleRes),
+                title = stringResource(SettingsDestination.titleRes),
                 canNavigateBack = true,
                 scrollBehavior = scrollBehavior,
                 navigateUp = navigateUp
@@ -48,6 +51,9 @@ fun SettingsScreen(
         bottomBar = {
             BetterAdminBottomNavigationBar(
                 navigateToMain = navigateToMain,
+                navigateToCourse = navigateToCourse,
+                navigateToMessage = navigateToMessage,
+                navigateToEvent = navigateToEvent,
                 navigateToSettings = navigateToSettings
             )
         }

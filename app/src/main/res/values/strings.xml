@@ -14,4 +14,6 @@
     <string name="nav_bar_messages">Beskeder</string>
     <string name="nav_bar_events">Events</string>
     <string name="nav_bar_settings">Settings</string>
+    <string name="error_something_went_wrong">Noget er gået galt</string>
+    <string name="enrolled_courses">Tilmeldte fag:</string>
 </resources>

@@ -8,6 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.betteradminapp.ui.home.HomeDestination
 import com.example.betteradminapp.ui.home.HomeScreen
+import com.example.betteradminapp.ui.screens.CourseDestination
+import com.example.betteradminapp.ui.screens.CourseScreen
 import com.example.betteradminapp.ui.screens.MainDestination
 import com.example.betteradminapp.ui.screens.MainScreen
 import com.example.betteradminapp.ui.screens.SettingsDestination
@@ -35,6 +37,20 @@ fun BetterAdminNavHost(
             MainScreen(
                 windowSize = windowSize,
                 navigateToMain = { navController.navigate(MainDestination.route) },
+                navigateToCourse = { navController.navigate(CourseDestination.route) },
+                navigateToMessage = { /* TODO */ },
+                navigateToEvent = { /* TODO */ },
+                navigateToSettings = { navController.navigate(SettingsDestination.route) },
+                navigateUp = { navController.navigateUp() }
+            )
+        }
+        composable(route = CourseDestination.route) {
+            CourseScreen(
+                windowSize = windowSize,
+                navigateToMain = { navController.navigate(MainDestination.route) },
+                navigateToCourse = { navController.navigate(CourseDestination.route) },
+                navigateToMessage = { /* TODO */ },
+                navigateToEvent = { /* TODO */ },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
                 navigateUp = { navController.navigateUp() }
             )
@@ -43,6 +59,9 @@ fun BetterAdminNavHost(
             SettingsScreen(
                 windowSize = windowSize,
                 navigateToMain = { navController.navigate(MainDestination.route) },
+                navigateToCourse = { navController.navigate(CourseDestination.route) },
+                navigateToMessage = { /* TODO */ },
+                navigateToEvent = { /* TODO */ },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
                 navigateUp = { navController.navigateUp() }
             )

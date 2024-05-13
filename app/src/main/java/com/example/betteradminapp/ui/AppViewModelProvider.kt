@@ -7,6 +7,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.betteradminapp.BetterAdminApplication
 import com.example.betteradminapp.ui.home.HomeViewModel
+import com.example.betteradminapp.ui.screens.CourseViewModel
 import com.example.betteradminapp.ui.screens.MainViewModel
 
 /**
@@ -17,12 +18,24 @@ object AppViewModelProvider {
         // Initializer for HomeViewModel
         initializer {
             HomeViewModel(
-                betterAdminApplication().container.pupilRepository,
-                betterAdminApplication().userPreferencesRepository
+                pupilRepository = betterAdminApplication().container.pupilRepository,
+                userPreferencesRepository = betterAdminApplication().userPreferencesRepository
             )
         }
         initializer {
-            MainViewModel(betterAdminApplication().container.pupilRepository)
+            MainViewModel(
+                pupilRepository = betterAdminApplication().container.pupilRepository,
+                courseRepository = betterAdminApplication().container.courseRepository,
+                userPreferencesRepository = betterAdminApplication().userPreferencesRepository
+            )
+        }
+        initializer {
+            CourseViewModel(
+                enrollmentRepository = betterAdminApplication().container.enrollmentRepository,
+                courseRepository = betterAdminApplication().container.courseRepository,
+                teacherRepository = betterAdminApplication().container.teacherRepository,
+                userPreferencesRepository = betterAdminApplication().userPreferencesRepository
+            )
         }
     }
 }

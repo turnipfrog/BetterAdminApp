@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.room.TypeConverter
 import java.time.LocalDate
+import java.util.Date
 
 
 class Converters {
@@ -20,5 +21,15 @@ class Converters {
     @TypeConverter
     fun toDateString(date: LocalDate?): String? {
         return date?.toString()
+    }
+
+    @TypeConverter
+    fun toDate(dateLong: Long?): Date? {
+        return dateLong?.let { Date(it) }
+    }
+
+    @TypeConverter
+    fun fromDate(date: Date?): Long? {
+        return if (date == null) null else date.getTime()
     }
 }

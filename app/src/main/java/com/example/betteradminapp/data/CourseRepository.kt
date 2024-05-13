@@ -10,6 +10,8 @@ interface CourseRepository {
 
     fun getCoursesByTeacherIdStream(teacherId: Int): Flow<List<Course>>
 
+    fun getCoursesByPupilIdStream(pupilId: Int): Flow<List<Course>>
+
     suspend fun insertCourse(course: Course)
 
     suspend fun deleteCourse(course: Course)

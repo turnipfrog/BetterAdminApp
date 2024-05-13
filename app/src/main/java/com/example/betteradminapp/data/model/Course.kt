@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.example.betteradminapp.data.typeconverter.Converters
-import java.time.LocalDate
+import java.util.Date
 
 @Entity(tableName = "courses")
 @TypeConverters(Converters::class)
@@ -17,9 +17,7 @@ data class Course(
     @ColumnInfo(name = "max_enrolled")
     val maxEnrolled: Int,
     @ColumnInfo(name = "start_date")
-    val startDate: LocalDate,
-    @ColumnInfo(name = "end_date")
-    val endDate: LocalDate,
+    val startDate: Date,
     @ColumnInfo(name = "teacher_id")
     val teacherId: Int,
     @ColumnInfo(name = "classroom_name")
