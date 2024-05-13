@@ -18,4 +18,5 @@
     <string name="enrolled_courses">Tilmeldte fag:</string>
     <string name="button_sent">Sendt</string>
     <string name="button_received">Modtaget</string>
+    <string name="new_message">Ny besked</string>
 </resources>

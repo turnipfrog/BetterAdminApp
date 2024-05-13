@@ -16,6 +16,8 @@ import com.example.betteradminapp.ui.screens.MainDestination
 import com.example.betteradminapp.ui.screens.MainScreen
 import com.example.betteradminapp.ui.screens.MessageDestination
 import com.example.betteradminapp.ui.screens.MessageScreen
+import com.example.betteradminapp.ui.screens.SendMessageDestination
+import com.example.betteradminapp.ui.screens.SendMessageScreen
 import com.example.betteradminapp.ui.screens.SettingsDestination
 import com.example.betteradminapp.ui.screens.SettingsScreen
 
@@ -69,8 +71,14 @@ fun BetterAdminNavHost(
                 navigateToEvent = { /* TODO */ },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
                 navigateUp = { navController.navigateUp() },
-                navigateToSendMessage = { /* TODO */ }
+                navigateToSendMessage = { navController.navigate(SendMessageDestination.route) }
             )
+        }
+        composable(route = SendMessageDestination.route) {
+            SendMessageScreen(
+                windowSize = windowSize,
+                navigateUp = { navController.navigateUp() },
+                navigateToMessage = { navController.navigate(MessageDestination.route) })
         }
         composable(route = SettingsDestination.route) {
             SettingsScreen(

@@ -12,6 +12,7 @@ import com.example.betteradminapp.ui.home.HomeViewModel
 import com.example.betteradminapp.ui.screens.CourseViewModel
 import com.example.betteradminapp.ui.screens.MainViewModel
 import com.example.betteradminapp.ui.screens.MessageViewModel
+import com.example.betteradminapp.ui.screens.SendMessageViewModel
 
 /**
  * Provides Factory to create instance of ViewModel for the entire Inventory app
@@ -43,6 +44,13 @@ object AppViewModelProvider {
         }
         initializer {
             MessageViewModel(
+                teacherRepository = betterAdminApplication().container.teacherRepository,
+                messageRepository = betterAdminApplication().container.messageRepository,
+                userPreferencesRepository = betterAdminApplication().userPreferencesRepository
+            )
+        }
+        initializer {
+            SendMessageViewModel(
                 teacherRepository = betterAdminApplication().container.teacherRepository,
                 messageRepository = betterAdminApplication().container.messageRepository,
                 userPreferencesRepository = betterAdminApplication().userPreferencesRepository
