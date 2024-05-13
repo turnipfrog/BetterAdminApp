@@ -6,6 +6,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -124,11 +125,11 @@ fun MessageBody(
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    Column() {
+    Column(modifier = modifier) {
         ToggleScreenButtons(
             toggleScreen = { viewModel.setScreenIsReceivedMessages(it) },
             messageUiState = messageUiState,
-            modifier = modifier
+            modifier = Modifier
         )
         MessageCardList(
             messageUiState = messageUiState,
@@ -138,7 +139,7 @@ fun MessageBody(
                     viewModel.setMessageSeen(it)
                 }
             },
-            modifier = modifier.align(Alignment.Start)
+            modifier = Modifier.align(Alignment.End)
         )
     }
 }
