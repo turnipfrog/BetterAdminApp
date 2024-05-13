@@ -1,5 +1,7 @@
 package com.example.betteradminapp.ui.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betteradminapp.data.CourseRepository
@@ -7,11 +9,15 @@ import com.example.betteradminapp.data.PupilRepository
 import com.example.betteradminapp.data.UserPreferencesRepository
 import com.example.betteradminapp.data.model.Course
 import com.example.betteradminapp.data.model.Pupil
+import com.example.betteradminapp.data.tools.DateTools
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.util.Date
 
+@RequiresApi(Build.VERSION_CODES.O)
 class MainViewModel(
     val pupilRepository: PupilRepository,
     val courseRepository: CourseRepository,
@@ -24,6 +30,8 @@ class MainViewModel(
 
     val mainUiState: StateFlow<MainUiState> = _mainUiState
 
+    val today = DateTools.convertToDateViaInstant(LocalDate.now()) ?: Date()
+
     init {
         fetchData()
     }
@@ -32,7 +40,7 @@ class MainViewModel(
         viewModelScope.launch {
             val userId = userPreferencesRepository.readUserId() ?: -1
             val user = pupilRepository.getPupilByIdStream(userId).firstOrNull()
-            val courses = courseRepository.getCoursesByPupilIdStream(userId)
+            val courses = courseRepository.getCoursesByPupilIdAndDateStream(userId, today)
                 .firstOrNull()
                 ?.distinctBy { course -> course.courseName }
 

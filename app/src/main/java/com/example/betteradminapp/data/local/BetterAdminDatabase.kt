@@ -6,15 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.betteradminapp.data.model.Course
 import com.example.betteradminapp.data.model.Enrollment
+import com.example.betteradminapp.data.model.Message
 import com.example.betteradminapp.data.model.Pupil
 import com.example.betteradminapp.data.model.Teacher
 
-@Database(entities = [Pupil::class, Teacher::class, Course::class, Enrollment::class], version = 6, exportSchema = false)
+@Database(entities = [Pupil::class, Teacher::class, Course::class, Enrollment::class, Message::class], version = 7, exportSchema = false)
 abstract class BetterAdminDatabase : RoomDatabase() {
     abstract fun pupilDao() : PupilDao
     abstract fun teacherDao(): TeacherDao
     abstract fun courseDao(): CourseDao
     abstract fun enrollmentDao(): EnrollmentDao
+    abstract fun messageDao(): MessageDao
 
     companion object {
         @Volatile

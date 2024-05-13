@@ -1,5 +1,7 @@
 package com.example.betteradminapp.ui.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betteradminapp.data.CourseRepository
@@ -8,11 +10,14 @@ import com.example.betteradminapp.data.TeacherRepository
 import com.example.betteradminapp.data.UserPreferencesRepository
 import com.example.betteradminapp.data.model.Course
 import com.example.betteradminapp.data.model.Teacher
+import com.example.betteradminapp.data.tools.DateTools
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.util.Date
 
 class CourseViewModel(
     val enrollmentRepository: EnrollmentRepository,
@@ -50,7 +55,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Klaver",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 5, 13, 18, 0),
+//                    startDate = Date(2024, 6, 13, 18, 0),
 //                    teacherId = teacherId1,
 //                    classroomName = "B2.01"
 //                )
@@ -59,7 +64,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Klaver",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 5, 18, 18, 0),
+//                    startDate = Date(2024, 6, 18, 18, 0),
 //                    teacherId = teacherId1,
 //                    classroomName = "B2.01"
 //                )
@@ -68,7 +73,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Klaver",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 5, 25, 18, 0),
+//                    startDate = Date(2024, 6, 25, 18, 0),
 //                    teacherId = teacherId1,
 //                    classroomName = "B2.01"
 //                )
@@ -77,7 +82,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Klaver",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 6, 1, 18, 0),
+//                    startDate = Date(2024, 7, 1, 18, 0),
 //                    teacherId = teacherId1,
 //                    classroomName = "B2.01"
 //                )
@@ -86,7 +91,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Saxofon",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 5, 17, 17, 0),
+//                    startDate = Date(2024, 6, 17, 17, 0),
 //                    teacherId = teacherId2,
 //                    classroomName = "A1.14"
 //                )
@@ -95,7 +100,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Saxofon",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 5, 24, 17, 0),
+//                    startDate = Date(2024, 6, 24, 17, 0),
 //                    teacherId = teacherId2,
 //                    classroomName = "A1.14"
 //                )
@@ -104,7 +109,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Saxofon",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 5, 31, 17, 0),
+//                    startDate = Date(2024, 6, 31, 17, 0),
 //                    teacherId = teacherId2,
 //                    classroomName = "A1.14"
 //                )
@@ -121,8 +126,12 @@ class CourseViewModel(
 //        }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    val today = DateTools.convertToDateViaInstant(LocalDate.now()) ?: Date()
+
+    @RequiresApi(Build.VERSION_CODES.O)
     val courseUiState: StateFlow<CourseUiState> =
-        courseRepository.getCoursesByPupilIdStream(pupilId).map { CourseUiState(it) }
+        courseRepository.getCoursesByPupilIdAndDateStream(pupilId, today).map { CourseUiState(it) }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
