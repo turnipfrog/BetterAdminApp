@@ -77,8 +77,8 @@ fun BetterAdminNavHost(
         composable(route = SendMessageDestination.route) {
             SendMessageScreen(
                 windowSize = windowSize,
-                navigateUp = { navController.navigateUp() },
-                navigateToMessage = { navController.navigate(MessageDestination.route) })
+                navigateUp = { navController.navigateUp() }
+            )
         }
         composable(route = SettingsDestination.route) {
             SettingsScreen(
