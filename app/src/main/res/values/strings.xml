@@ -19,4 +19,14 @@
     <string name="button_sent">Sendt</string>
     <string name="button_received">Modtaget</string>
     <string name="new_message">Ny besked</string>
+    <string name="receiver">Modtager</string>
+    <string name="receivers_email">Modtagers Email</string>
+    <string name="title">Titel</string>
+    <string name="type_title">Indtast Titel</string>
+    <string name="content">Tekst</string>
+    <string name="type_content">Skriv Besked</string>
+    <string name="receiver_missing">Modtageren eksisterer ikke</string>
+    <string name="title_missing">Indtast titel</string>
+    <string name="content_missing">Tomme beskeder kan ikke sendes</string>
+    <string name="message_sent">Beskeden er sendt</string>
 </resources>

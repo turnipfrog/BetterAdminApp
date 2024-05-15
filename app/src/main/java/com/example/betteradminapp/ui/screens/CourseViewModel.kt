@@ -55,7 +55,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Klaver",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 6, 13, 18, 0),
+//                    startDate = Date(124, 6, 13, 18, 0),
 //                    teacherId = teacherId1,
 //                    classroomName = "B2.01"
 //                )
@@ -64,7 +64,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Klaver",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 6, 18, 18, 0),
+//                    startDate = Date(124, 6, 18, 18, 0),
 //                    teacherId = teacherId1,
 //                    classroomName = "B2.01"
 //                )
@@ -73,7 +73,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Klaver",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 6, 25, 18, 0),
+//                    startDate = Date(124, 6, 25, 18, 0),
 //                    teacherId = teacherId1,
 //                    classroomName = "B2.01"
 //                )
@@ -82,7 +82,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Klaver",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 7, 1, 18, 0),
+//                    startDate = Date(124, 7, 1, 18, 0),
 //                    teacherId = teacherId1,
 //                    classroomName = "B2.01"
 //                )
@@ -91,7 +91,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Saxofon",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 6, 17, 17, 0),
+//                    startDate = Date(124, 6, 17, 17, 0),
 //                    teacherId = teacherId2,
 //                    classroomName = "A1.14"
 //                )
@@ -100,7 +100,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Saxofon",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 6, 24, 17, 0),
+//                    startDate = Date(124, 6, 24, 17, 0),
 //                    teacherId = teacherId2,
 //                    classroomName = "A1.14"
 //                )
@@ -109,7 +109,7 @@ class CourseViewModel(
 //                Course(
 //                    courseName = "Saxofon",
 //                    maxEnrolled = 30,
-//                    startDate = Date(2024, 6, 31, 17, 0),
+//                    startDate = Date(124, 6, 31, 17, 0),
 //                    teacherId = teacherId2,
 //                    classroomName = "A1.14"
 //                )

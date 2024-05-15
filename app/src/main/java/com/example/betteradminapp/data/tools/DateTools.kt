@@ -3,6 +3,7 @@ package com.example.betteradminapp.data.tools
 import android.os.Build
 import androidx.annotation.RequiresApi
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Date
 
@@ -22,5 +23,14 @@ object DateTools {
         return dateToConvert.toInstant()
             .atZone(ZoneId.systemDefault())
             .toLocalDate()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun convertToDateFromLocalDateTime(dateToConvert: LocalDateTime): Date? {
+        return Date.from(
+            dateToConvert
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+        )
     }
 }

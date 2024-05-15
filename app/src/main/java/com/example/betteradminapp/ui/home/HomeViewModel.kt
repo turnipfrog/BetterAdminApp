@@ -56,7 +56,7 @@ class HomeViewModel(
 //                        lastName = "Hundesen",
 //                        phoneNo = "12345678",
 //                        gender = "m",
-//                        enrollmentDate = LocalDate.of(2024, 5, 8),
+//                        enrollmentDate = LocalDate.of(124, 5, 8),
 //                        note = null,
 //                        photoPermission = false,
 //                        school = "Doggy school",
