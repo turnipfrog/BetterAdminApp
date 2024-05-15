@@ -3,6 +3,7 @@
     <string name="your_page">Din side</string>
     <string name="back_button">Tilbage</string>
     <string name="login">Log ind</string>
+    <string name="log_out">Log ud</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="show_password">Vis password</string>
@@ -29,4 +30,5 @@
     <string name="title_missing">Indtast titel</string>
     <string name="content_missing">Tomme beskeder kan ikke sendes</string>
     <string name="message_sent">Beskeden er sendt</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>

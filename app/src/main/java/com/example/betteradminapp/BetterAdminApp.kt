@@ -34,10 +34,14 @@ import com.example.betteradminapp.ui.navigation.BetterAdminNavHost
 @Composable
 fun BetterAdminApp(
     windowSize: WindowWidthSizeClass,
+    onThemeUpdated: () -> Unit,
+    darkTheme: Boolean,
     navController: NavHostController = rememberNavController()
 ) {
     BetterAdminNavHost(
         windowSize = windowSize,
+        onThemeUpdated = onThemeUpdated,
+        darkTheme = darkTheme,
         navController = navController
     )
 }

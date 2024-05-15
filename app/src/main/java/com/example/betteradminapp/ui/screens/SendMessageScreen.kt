@@ -32,6 +32,7 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -221,7 +222,6 @@ fun AutoComplete(
             modifier = Modifier.padding(start = 10.dp, bottom = 2.dp),
             text = stringResource(id = R.string.receiver),
             fontSize = 16.sp,
-            color = Color.Black,
             fontWeight = FontWeight.Medium
         )
 
@@ -234,7 +234,7 @@ fun AutoComplete(
                         .height(heightTextFields)
                         .border(
                             width = 1.8.dp,
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                             shape = RoundedCornerShape(15.dp)
                         )
                         .onGloballyPositioned { coordinates ->
@@ -251,10 +251,9 @@ fun AutoComplete(
                         containerColor = Color.Transparent,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
-                        cursorColor = Color.Black
+                        cursorColor = MaterialTheme.colorScheme.onPrimaryContainer
                     ),
                     textStyle = TextStyle(
-                        color = Color.Black,
                         fontSize = 16.sp
                     ),
                     keyboardOptions = KeyboardOptions(
@@ -365,7 +364,6 @@ fun TitleTextField(
             modifier = Modifier.padding(start = 10.dp, bottom = 2.dp),
             text = stringResource(id = R.string.title),
             fontSize = 16.sp,
-            color = Color.Black,
             fontWeight = FontWeight.Medium
         )
 
@@ -375,7 +373,7 @@ fun TitleTextField(
                 .height(heightTextFields)
                 .border(
                     width = 1.8.dp,
-                    color = Color.Black,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                     shape = RoundedCornerShape(15.dp)
                 )
                 .onGloballyPositioned { coordinates ->
@@ -391,10 +389,9 @@ fun TitleTextField(
                 containerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = Color.Black
+                cursorColor = MaterialTheme.colorScheme.onPrimaryContainer
             ),
             textStyle = TextStyle(
-                color = Color.Black,
                 fontSize = 16.sp
             ),
             keyboardOptions = KeyboardOptions(
@@ -432,7 +429,6 @@ fun ContentTextField(
             modifier = Modifier.padding(start = 10.dp, bottom = 2.dp),
             text = stringResource(id = R.string.content),
             fontSize = 16.sp,
-            color = Color.Black,
             fontWeight = FontWeight.Medium
         )
 
@@ -442,7 +438,7 @@ fun ContentTextField(
                 .fillMaxHeight()
                 .border(
                     width = 1.8.dp,
-                    color = Color.Black,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                     shape = RoundedCornerShape(15.dp)
                 )
                 .onGloballyPositioned { coordinates ->
@@ -458,10 +454,9 @@ fun ContentTextField(
                 containerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = Color.Black
+                cursorColor = MaterialTheme.colorScheme.onPrimaryContainer
             ),
             textStyle = TextStyle(
-                color = Color.Black,
                 fontSize = 16.sp
             ),
             keyboardOptions = KeyboardOptions(

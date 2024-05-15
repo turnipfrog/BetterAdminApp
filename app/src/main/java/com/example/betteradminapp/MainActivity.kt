@@ -10,6 +10,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.betteradminapp.ui.theme.BetterAdminAppTheme
 
@@ -19,14 +23,18 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BetterAdminAppTheme {
-                // A surface container using the 'background' color from the theme
+            var darkTheme by remember { mutableStateOf(false) }
+            BetterAdminAppTheme(darkTheme = darkTheme) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val windowSize = calculateWindowSizeClass(this)
-                    BetterAdminApp(windowSize = windowSize.widthSizeClass)
+                    BetterAdminApp(
+                        windowSize = windowSize.widthSizeClass,
+                        onThemeUpdated = { darkTheme = !darkTheme },
+                        darkTheme = darkTheme
+                    )
                 }
             }
         }

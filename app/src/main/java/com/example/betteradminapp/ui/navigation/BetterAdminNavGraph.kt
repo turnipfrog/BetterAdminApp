@@ -26,6 +26,8 @@ import com.example.betteradminapp.ui.screens.SettingsScreen
 @Composable
 fun BetterAdminNavHost(
     windowSize: WindowWidthSizeClass,
+    onThemeUpdated: () -> Unit,
+    darkTheme: Boolean,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
@@ -88,7 +90,10 @@ fun BetterAdminNavHost(
                 navigateToMessage = { navController.navigate(MessageDestination.route) },
                 navigateToEvent = { /* TODO */ },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
-                navigateUp = { navController.navigateUp() }
+                navigateUp = { navController.navigateUp() },
+                onThemeUpdated = onThemeUpdated,
+                darkTheme = darkTheme,
+                logOut = { navController.popBackStack(HomeDestination.route, inclusive = false) }
             )
         }
     }
