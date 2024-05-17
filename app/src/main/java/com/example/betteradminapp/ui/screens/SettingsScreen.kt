@@ -67,6 +67,7 @@ fun SettingsScreen(
     logOut: () -> Unit,
     onThemeUpdated: () -> Unit,
     darkTheme: Boolean,
+    unreadMessages: Int,
     modifier: Modifier = Modifier,
     //viewModel: SettingsViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
@@ -89,7 +90,8 @@ fun SettingsScreen(
                 navigateToMessage = navigateToMessage,
                 navigateToEvent = navigateToEvent,
                 navigateToSettings = navigateToSettings,
-                currentSelected = "settings"
+                currentSelected = "settings",
+                unreadMessages = unreadMessages
             )
         }
     ) { innerPadding ->

@@ -1,13 +1,13 @@
 package com.example.betteradminapp.ui.screens
 
 import android.os.Build
-import android.util.Log
+import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -24,7 +25,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Message
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,15 +44,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -67,7 +68,6 @@ import com.example.betteradminapp.R
 import com.example.betteradminapp.data.model.Message
 import com.example.betteradminapp.ui.AppViewModelProvider
 import com.example.betteradminapp.ui.navigation.NavigationDestination
-import kotlinx.coroutines.launch
 import java.util.Date
 
 object MessageDestination : NavigationDestination {
@@ -87,11 +87,14 @@ fun MessageScreen(
     navigateToSettings: () -> Unit,
     navigateUp: () -> Unit,
     navigateToSendMessage: () -> Unit,
+    setUnreadMessages: (Int) -> Unit,
+    unreadMessages: Int,
     modifier: Modifier = Modifier,
     viewModel: MessageViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val messageUiState by viewModel.messageUiState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    viewModel.fetchData()
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -119,7 +122,8 @@ fun MessageScreen(
                 navigateToMessage = navigateToMessage,
                 navigateToEvent = navigateToEvent,
                 navigateToSettings = navigateToSettings,
-                currentSelected = "message"
+                currentSelected = "message",
+                unreadMessages = unreadMessages
             )
         },
 
@@ -127,6 +131,8 @@ fun MessageScreen(
         MessageBody(
             viewModel = viewModel,
             messageUiState = messageUiState,
+            unreadMessagesReceived = { viewModel.unreadReceivedMessages(it) },
+            setUnreadMessages = setUnreadMessages,
             modifier = Modifier
                 .padding(innerPadding)
 
@@ -138,10 +144,10 @@ fun MessageScreen(
 fun MessageBody(
     viewModel: MessageViewModel,
     messageUiState: MessageUiState,
+    unreadMessagesReceived: ((Int) -> Unit) -> Unit,
+    setUnreadMessages: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val coroutineScope = rememberCoroutineScope()
-
     Column(modifier = modifier) {
         ToggleScreenButtons(
             toggleScreen = { viewModel.setScreenIsReceivedMessages(it) },
@@ -151,11 +157,9 @@ fun MessageBody(
         MessageCardList(
             messageUiState = messageUiState,
             getTeacherNameFromEmail = { viewModel.getTeacherNameByEmail(it) },
-            setMessageSeen = {
-                coroutineScope.launch {
-                    viewModel.setMessageSeen(it)
-                }
-            },
+            setMessageSeen = { viewModel.setMessageSeen(it) },
+            unreadMessagesReceived = unreadMessagesReceived,
+            setUnreadMessages = setUnreadMessages,
             modifier = Modifier.align(Alignment.End)
         )
     }
@@ -167,7 +171,9 @@ fun ToggleScreenButtons(
     messageUiState: MessageUiState,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier = modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
+    Row(modifier = modifier
+        .fillMaxWidth()
+        .height(IntrinsicSize.Min)) {
         if (messageUiState.screenIsReceivedMessages) {
             OutlinedButton(
                 onClick = { toggleScreen(false) },
@@ -209,6 +215,8 @@ fun ToggleScreenButtons(
 fun MessageCardList(
     messageUiState: MessageUiState,
     getTeacherNameFromEmail: (String) -> String,
+    unreadMessagesReceived: ((Int) -> Unit) -> Unit,
+    setUnreadMessages: (Int) -> Unit,
     setMessageSeen: (Message) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -227,21 +235,28 @@ fun MessageCardList(
             else {
                 getTeacherNameFromEmail(message.receiverEmail)
             }
+            // Dummycode to be replaced
+            val faceImage = if (fullName == "Sarah Saxogpapir") R.drawable.saxogpapir_billede else R.drawable.klavermus_billede
             MessageCard(
-                messageReceived = messageUiState.screenIsReceivedMessages,
                 message = message,
                 fullName = fullName,
-                setMessageSeen = setMessageSeen
+                setMessageSeen = setMessageSeen,
+                unreadMessagesReceived = unreadMessagesReceived,
+                setUnreadMessages = setUnreadMessages,
+                faceImage = faceImage
             )
             Spacer(modifier = Modifier.padding(2.dp))
         }
     }
 }
+
 @Composable
 fun MessageCard(
-    messageReceived: Boolean,
     message: Message,
     fullName: String,
+    @DrawableRes faceImage: Int,
+    unreadMessagesReceived: ((Int) -> Unit) -> Unit,
+    setUnreadMessages: (Int) -> Unit,
     setMessageSeen: (Message) -> Unit,
     descriptionFontSize: TextUnit = MaterialTheme.typography.titleSmall.fontSize,
     descriptionFontWeight: FontWeight = FontWeight.Normal,
@@ -256,7 +271,6 @@ fun MessageCard(
     )
 
     val color: Color = if (message.isNew) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant
-    val prefixStr = if (messageReceived) "Fra: " else "Til: "
 
     Card(
         colors = CardDefaults.cardColors(
@@ -283,12 +297,22 @@ fun MessageCard(
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                Image(
+                    painter = painterResource(faceImage),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .width(50.dp)
+                        .height(50.dp)
+
+                )
+                Spacer(modifier = Modifier.padding(end = 5.dp))
                 Column(modifier = Modifier.weight(6f)) {
                     Text(
                         modifier = Modifier,
-                        text = prefixStr + fullName,
+                        text = fullName,
                         fontSize = descriptionFontSize,
-                        fontWeight = descriptionFontWeight,
+                        fontWeight = FontWeight.Bold,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -303,7 +327,7 @@ fun MessageCard(
                 }
                 Text(
                     modifier = Modifier.weight(3f),
-                    text = message.timeSent.toString()
+                    text = message.timeSent.toString(),
                 )
                 IconButton(
                     modifier = Modifier
@@ -312,8 +336,12 @@ fun MessageCard(
                         .rotate(rotationState),
                     onClick = {
                         expandedState = !expandedState
-                        if (message.isNew) setMessageSeen(message)
-                    }) {
+                        if (message.isNew) {
+                            setMessageSeen(message)
+                            unreadMessagesReceived(setUnreadMessages)
+                        }
+                    }
+                ) {
                     Icon(
                         imageVector = Icons.Default.ArrowDropDown,
                         contentDescription = "Drop-Down Arrow"
@@ -339,7 +367,6 @@ fun MessageCard(
 @Composable
 fun MessageCardPreview() {
     MessageCard(
-        messageReceived = true,
         message = Message(
             id = 0,
             title = "Vigtig info",
@@ -350,6 +377,9 @@ fun MessageCardPreview() {
             isNew = true
         ),
         fullName = "Søren Sølvfisk",
-        setMessageSeen = {}
+        setMessageSeen = {},
+        setUnreadMessages = {},
+        unreadMessagesReceived = {},
+        faceImage = R.drawable.klavermus_billede
     )
 }

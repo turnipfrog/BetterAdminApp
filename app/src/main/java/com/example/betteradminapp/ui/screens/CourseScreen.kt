@@ -68,6 +68,7 @@ fun CourseScreen(
     navigateToEvent: () -> Unit,
     navigateToSettings: () -> Unit,
     navigateUp: () -> Unit,
+    unreadMessages: Int,
     modifier: Modifier = Modifier,
     viewModel: CourseViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
@@ -92,7 +93,8 @@ fun CourseScreen(
                 navigateToMessage = navigateToMessage,
                 navigateToEvent = navigateToEvent,
                 navigateToSettings = navigateToSettings,
-                currentSelected = "course"
+                currentSelected = "course",
+                unreadMessages = unreadMessages
             )
         }
     ) { innerPadding ->
@@ -185,7 +187,7 @@ fun ExpandableCard(
                 )
                 Text(
                     modifier = Modifier.weight(3f),
-                    text = course.startDate.toString()
+                    text = course.startDate.toString().dropLast(4)
                 )
                 IconButton(
                     modifier = Modifier

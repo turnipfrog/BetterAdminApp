@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betteradminapp.data.CourseRepository
+import com.example.betteradminapp.data.MessageRepository
 import com.example.betteradminapp.data.PupilRepository
 import com.example.betteradminapp.data.UserPreferencesRepository
 import com.example.betteradminapp.data.model.Course
@@ -12,6 +13,7 @@ import com.example.betteradminapp.data.model.Pupil
 import com.example.betteradminapp.data.tools.DateTools
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -21,6 +23,7 @@ import java.util.Date
 class MainViewModel(
     val pupilRepository: PupilRepository,
     val courseRepository: CourseRepository,
+    val messageRepository: MessageRepository,
     private val userPreferencesRepository: UserPreferencesRepository
 ): ViewModel() {
 
@@ -45,6 +48,17 @@ class MainViewModel(
                 ?.distinctBy { course -> course.courseName }
 
             _mainUiState.value = MainUiState(userId, user, courses)
+        }
+    }
+
+    fun unreadReceivedMessages(func: (Int) -> Unit) {
+        viewModelScope.launch {
+            val userEmail = userPreferencesRepository.readEmail() ?: ""
+            val unreadMessages = messageRepository
+                .getMessagesByReceiverEmailStream(userEmail)
+                .first()
+                .count { messages -> messages.isNew }
+            func(unreadMessages)
         }
     }
 }

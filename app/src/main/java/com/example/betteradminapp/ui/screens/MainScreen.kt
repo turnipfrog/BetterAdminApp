@@ -50,11 +50,14 @@ fun MainScreen(
     navigateToEvent: () -> Unit,
     navigateToSettings: () -> Unit,
     navigateUp: () -> Unit,
+    setUnreadMessages: (Int) -> Unit,
+    unreadMessages: Int,
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val mainUiState by viewModel.mainUiState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    viewModel.unreadReceivedMessages(setUnreadMessages)
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -73,7 +76,8 @@ fun MainScreen(
                 navigateToMessage = navigateToMessage,
                 navigateToEvent = navigateToEvent,
                 navigateToSettings = navigateToSettings,
-                currentSelected = "main"
+                currentSelected = "main",
+                unreadMessages = unreadMessages
             )
         }
     ) { innerPadding ->

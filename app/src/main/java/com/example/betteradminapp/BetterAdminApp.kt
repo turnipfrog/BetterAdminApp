@@ -10,6 +10,8 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Mail
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -36,12 +38,16 @@ fun BetterAdminApp(
     windowSize: WindowWidthSizeClass,
     onThemeUpdated: () -> Unit,
     darkTheme: Boolean,
+    setUnreadMessages: (Int) -> Unit,
+    unreadMessages: Int,
     navController: NavHostController = rememberNavController()
 ) {
     BetterAdminNavHost(
         windowSize = windowSize,
         onThemeUpdated = onThemeUpdated,
         darkTheme = darkTheme,
+        setUnreadMessages = setUnreadMessages,
+        unreadMessages = unreadMessages,
         navController = navController
     )
 }
@@ -78,55 +84,6 @@ fun BetterAdminTopAppBar(
 /**
  * Bottom Navigation Bar for navigation when logged in
  */
-//@Composable
-//fun BetterAdminBottomNavigationBar(
-//    navController: NavHostController
-//) {
-//    var selectedItem by remember { mutableIntStateOf(0) }
-//    val items = listOf("Main", "Courses", "Messages", "Events", "Settings")
-//
-//    var iconImg: ImageVector = Icons.Filled.Home
-//    var labelStr = ""
-//    var navigateFunc: Unit = navController.navigate(MainDestination.route)
-//
-//    NavigationBar {
-//        items.forEachIndexed { index, item ->
-//            when (item) {
-//                "Main" -> {
-//                    iconImg = Icons.Filled.Home
-//                    labelStr = stringResource(R.string.nav_bar_main)
-//                    navigateFunc = navController.navigate(MainDestination.route)
-//                }
-//                "Courses" -> {
-//                    iconImg = Icons.Filled.MusicNote
-//                    labelStr = stringResource(R.string.nav_bar_courses)
-//                    navigateFunc = navController.navigate(CourseDestination.route)
-//                }
-//                "Messages" -> {
-//                    iconImg = Icons.Filled.Mail
-//                    labelStr = stringResource(R.string.nav_bar_messages)
-//                }
-//                "Events" -> {
-//                    iconImg = Icons.Filled.Event
-//                    labelStr = stringResource(R.string.nav_bar_events)
-//                }
-//                "Settings" -> {
-//                    iconImg = Icons.Filled.Settings
-//                    labelStr = stringResource(R.string.nav_bar_settings)
-//                    navigateFunc = navController.navigate(SettingsDestination.route)
-//                }
-//            }
-//            NavigationBarItem(
-//                icon = { Icon(imageVector = iconImg, contentDescription = labelStr) },
-//                label = { Text(labelStr) },
-//                selected = true,
-//                onClick = { navController.navigate(MainDestination.route) }
-//            )
-//        }
-//    }
-//}
-
-
 
 @Composable
 fun BetterAdminBottomNavigationBar(
@@ -135,6 +92,7 @@ fun BetterAdminBottomNavigationBar(
     navigateToMessage: () -> Unit,
     navigateToEvent: () -> Unit,
     navigateToSettings: () -> Unit,
+    unreadMessages: Int,
     currentSelected: String
 ) {
     NavigationBar {
@@ -151,7 +109,22 @@ fun BetterAdminBottomNavigationBar(
             onClick = navigateToCourse
         )
         NavigationBarItem(
-            icon = { Icon(imageVector = Icons.Filled.Mail, contentDescription = stringResource(R.string.nav_bar_messages)) },
+            icon = { 
+                BadgedBox(
+                    badge = {
+                        if (unreadMessages > 0) {
+                            Badge {
+                                Text(text = unreadMessages.toString())
+                            }
+                        }
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Mail,
+                        contentDescription = stringResource(R.string.nav_bar_messages)
+                    )
+                }
+            },
             label = { Text(stringResource(R.string.nav_bar_messages)) },
             selected = currentSelected == "message",
             onClick = navigateToMessage

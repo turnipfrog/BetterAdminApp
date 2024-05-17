@@ -247,14 +247,14 @@ fun AutoComplete(
                         expanded = true
                     },
                     placeholder = { Text(stringResource(id = R.string.receivers_email)) },
-                    colors = TextFieldDefaults.textFieldColors(
-                        containerColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        cursorColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
                     textStyle = TextStyle(
                         fontSize = 16.sp
+                    ),
+                    shape = RoundedCornerShape(15.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        cursorColor = Color.Black
                     ),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Email,
@@ -385,14 +385,14 @@ fun TitleTextField(
                 setStringFunc(it)
             },
             placeholder = { Text(stringResource(id = R.string.type_title)) },
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = MaterialTheme.colorScheme.onPrimaryContainer
-            ),
             textStyle = TextStyle(
                 fontSize = 16.sp
+            ),
+            shape = RoundedCornerShape(15.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                cursorColor = Color.Black
             ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
@@ -450,14 +450,14 @@ fun ContentTextField(
                 setStringFunc(it)
             },
             placeholder = { Text(stringResource(id = R.string.type_content)) },
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = MaterialTheme.colorScheme.onPrimaryContainer
-            ),
             textStyle = TextStyle(
                 fontSize = 16.sp
+            ),
+            shape = RoundedCornerShape(15.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                cursorColor = Color.Black
             ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,

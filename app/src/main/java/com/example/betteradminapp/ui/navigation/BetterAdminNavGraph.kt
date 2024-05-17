@@ -28,6 +28,8 @@ fun BetterAdminNavHost(
     windowSize: WindowWidthSizeClass,
     onThemeUpdated: () -> Unit,
     darkTheme: Boolean,
+    setUnreadMessages: (Int) -> Unit,
+    unreadMessages: Int,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
@@ -50,7 +52,9 @@ fun BetterAdminNavHost(
                 navigateToMessage = { navController.navigate(MessageDestination.route) },
                 navigateToEvent = { /* TODO */ },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
-                navigateUp = { navController.navigateUp() }
+                navigateUp = { navController.navigateUp() },
+                setUnreadMessages = setUnreadMessages,
+                unreadMessages = unreadMessages
             )
         }
         composable(route = CourseDestination.route) {
@@ -61,7 +65,8 @@ fun BetterAdminNavHost(
                 navigateToMessage = { navController.navigate(MessageDestination.route) },
                 navigateToEvent = { /* TODO */ },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
-                navigateUp = { navController.navigateUp() }
+                navigateUp = { navController.navigateUp() },
+                unreadMessages = unreadMessages
             )
         }
         composable(route = MessageDestination.route) {
@@ -73,7 +78,9 @@ fun BetterAdminNavHost(
                 navigateToEvent = { /* TODO */ },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
                 navigateUp = { navController.navigateUp() },
-                navigateToSendMessage = { navController.navigate(SendMessageDestination.route) }
+                navigateToSendMessage = { navController.navigate(SendMessageDestination.route) },
+                setUnreadMessages = setUnreadMessages,
+                unreadMessages = unreadMessages
             )
         }
         composable(route = SendMessageDestination.route) {
@@ -93,7 +100,8 @@ fun BetterAdminNavHost(
                 navigateUp = { navController.navigateUp() },
                 onThemeUpdated = onThemeUpdated,
                 darkTheme = darkTheme,
-                logOut = { navController.popBackStack(HomeDestination.route, inclusive = false) }
+                logOut = { navController.popBackStack(HomeDestination.route, inclusive = false) },
+                unreadMessages = unreadMessages
             )
         }
     }

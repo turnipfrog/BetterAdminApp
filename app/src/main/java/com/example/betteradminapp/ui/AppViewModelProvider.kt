@@ -31,6 +31,7 @@ object AppViewModelProvider {
             MainViewModel(
                 pupilRepository = betterAdminApplication().container.pupilRepository,
                 courseRepository = betterAdminApplication().container.courseRepository,
+                messageRepository = betterAdminApplication().container.messageRepository,
                 userPreferencesRepository = betterAdminApplication().userPreferencesRepository
             )
         }

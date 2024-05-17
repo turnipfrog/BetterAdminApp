@@ -1,6 +1,5 @@
 package com.example.betteradminapp.ui.screens
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.betteradminapp.data.MessageRepository
@@ -34,7 +33,7 @@ class MessageViewModel(
 //                message = Message(
 //                    title = "Vigtig info",
 //                    content = "Hej alle bla bla bla",
-//                    timeSent = Date(2024, 6, 2, 12, 24, 10),
+//                    timeSent = Date(124, 6, 2, 12, 24, 10),
 //                    receiverEmail = "test@test.dk",
 //                    senderEmail = "Saksepigen@musik.dk",
 //                    isNew = true
@@ -63,7 +62,7 @@ class MessageViewModel(
 //                            "Maecenas ipsum dui, bibendum ut ex vel, dictum facilisis metus. " +
 //                            "Aenean euismod tempor ultricies. Praesent imperdiet rhoncus felis non posuere. " +
 //                            "Ut eu ante a orci tristique convallis vitae mollis quam.",
-//                    timeSent = Date(2024, 6, 8, 19, 34, 24),
+//                    timeSent = Date(124, 6, 8, 19, 34, 24),
 //                    receiverEmail = "test@test.dk",
 //                    senderEmail = "Saksepigen@musik.dk",
 //                    isNew = true
@@ -86,7 +85,7 @@ class MessageViewModel(
 //                message = Message(
 //                    title = "Giraf Buffet",
 //                    content = "Hej alle bla bla bla",
-//                    timeSent = Date(2024, 6, 2, 12, 0, 0),
+//                    timeSent = Date(124, 6, 2, 12, 0, 0),
 //                    receiverEmail = "test@test.dk",
 //                    senderEmail = "Saksepigen@musik.dk",
 //                    isNew = true
@@ -99,7 +98,7 @@ class MessageViewModel(
 //                            "Maecenas ipsum dui, bibendum ut ex vel, dictum facilisis metus. " +
 //                            "Aenean euismod tempor ultricies. Praesent imperdiet rhoncus felis non posuere. " +
 //                            "Ut eu ante a orci tristique convallis vitae mollis quam.",
-//                    timeSent = Date(2024, 6, 5, 12, 2, 0),
+//                    timeSent = Date(124, 6, 5, 12, 2, 0),
 //                    receiverEmail = "test@test.dk",
 //                    senderEmail = "Klavermus@musik.dk",
 //                    isNew = true
@@ -112,7 +111,7 @@ class MessageViewModel(
 //                            "Maecenas ipsum dui, bibendum ut ex vel, dictum facilisis metus. " +
 //                            "Aenean euismod tempor ultricies. Praesent imperdiet rhoncus felis non posuere. " +
 //                            "Ut eu ante a orci tristique convallis vitae mollis quam.",
-//                    timeSent = Date(2024, 6, 6, 12, 2, 52),
+//                    timeSent = Date(124, 6, 6, 12, 2, 52),
 //                    receiverEmail = "test@test.dk",
 //                    senderEmail = "Klavermus@musik.dk",
 //                    isNew = true
@@ -125,7 +124,7 @@ class MessageViewModel(
 //                            "Maecenas ipsum dui, bibendum ut ex vel, dictum facilisis metus. " +
 //                            "Aenean euismod tempor ultricies. Praesent imperdiet rhoncus felis non posuere. " +
 //                            "Ut eu ante a orci tristique convallis vitae mollis quam.",
-//                    timeSent = Date(2024, 6, 2, 12, 2, 0),
+//                    timeSent = Date(124, 6, 2, 12, 2, 0),
 //                    receiverEmail = "test@test.dk",
 //                    senderEmail = "Klavermus@musik.dk",
 //                    isNew = true
@@ -138,7 +137,7 @@ class MessageViewModel(
 //                            "Maecenas ipsum dui, bibendum ut ex vel, dictum facilisis metus. " +
 //                            "Aenean euismod tempor ultricies. Praesent imperdiet rhoncus felis non posuere. " +
 //                            "Ut eu ante a orci tristique convallis vitae mollis quam.",
-//                    timeSent = Date(2024, 5, 6, 12, 2, 0),
+//                    timeSent = Date(124, 5, 6, 12, 2, 0),
 //                    receiverEmail = "test@test.dk",
 //                    senderEmail = "Klavermus@musik.dk",
 //                    isNew = true
@@ -147,7 +146,7 @@ class MessageViewModel(
 //        }
     }
 
-    private fun fetchData() {
+    fun fetchData() {
         viewModelScope.launch {
             val userEmail = userPreferencesRepository.readEmail() ?: ""
             val teachers = teacherRepository.getAllTeachersStream().first()
@@ -157,7 +156,8 @@ class MessageViewModel(
             _messageUiState.value = MessageUiState(
                 messagesSent = messagesSent,
                 messagesReceived = messagesReceived,
-                teachers = teachers)
+                teachers = teachers
+            )
         }
     }
 
@@ -174,8 +174,21 @@ class MessageViewModel(
         return "${teacher?.firstName} ${teacher?.lastName}"
     }
 
-    suspend fun setMessageSeen(message: Message) {
-        messageRepository.updateMessage(message.copy(isNew = false))
+    fun setMessageSeen(message: Message) {
+        viewModelScope.launch {
+            messageRepository.updateMessage(message.copy(isNew = false))
+        }
+    }
+
+    fun unreadReceivedMessages(func: (Int) -> Unit) {
+        viewModelScope.launch {
+            val userEmail = userPreferencesRepository.readEmail() ?: ""
+            val unreadMessages = messageRepository
+                .getMessagesByReceiverEmailStream(userEmail)
+                .first()
+                .count { messages -> messages.isNew }
+            func(unreadMessages)
+        }
     }
 }
 

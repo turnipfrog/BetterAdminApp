@@ -24,6 +24,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             var darkTheme by remember { mutableStateOf(false) }
+            var unreadMessages by remember { mutableStateOf(0) }
             BetterAdminAppTheme(darkTheme = darkTheme) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -33,7 +34,9 @@ class MainActivity : ComponentActivity() {
                     BetterAdminApp(
                         windowSize = windowSize.widthSizeClass,
                         onThemeUpdated = { darkTheme = !darkTheme },
-                        darkTheme = darkTheme
+                        darkTheme = darkTheme,
+                        setUnreadMessages = { unreadMessages = it },
+                        unreadMessages = unreadMessages
                     )
                 }
             }
