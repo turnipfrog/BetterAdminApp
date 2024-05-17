@@ -336,10 +336,6 @@ fun MessageCard(
                         .rotate(rotationState),
                     onClick = {
                         expandedState = !expandedState
-                        if (message.isNew) {
-                            setMessageSeen(message)
-                            unreadMessagesReceived(setUnreadMessages)
-                        }
                     }
                 ) {
                     Icon(
@@ -349,6 +345,10 @@ fun MessageCard(
                 }
             }
             if (expandedState) {
+                if (message.isNew) {
+                    setMessageSeen(message)
+                    unreadMessagesReceived(setUnreadMessages)
+                }
                 Column {
                     Text(
                         text = message.content,
