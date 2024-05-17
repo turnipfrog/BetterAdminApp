@@ -65,6 +65,9 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.room:room-runtime:${rootProject.extra["room_version"]}")
+
+    implementation("com.google.accompanist:accompanist-pager:0.20.0")
+
     ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
     implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
     implementation("org.springframework.security:spring-security-crypto:5.7.2")

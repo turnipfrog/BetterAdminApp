@@ -2,7 +2,6 @@ package com.example.betteradminapp.data.local
 
 import com.example.betteradminapp.data.EnrollmentRepository
 import com.example.betteradminapp.data.model.Enrollment
-import com.example.betteradminapp.data.model.Pupil
 import kotlinx.coroutines.flow.Flow
 
 class OfflineEnrollmentRepository(private val enrollmentDao: EnrollmentDao): EnrollmentRepository {

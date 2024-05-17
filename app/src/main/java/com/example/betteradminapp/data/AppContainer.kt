@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.betteradminapp.data.local.BetterAdminDatabase
 import com.example.betteradminapp.data.local.OfflineCourseRepository
 import com.example.betteradminapp.data.local.OfflineEnrollmentRepository
+import com.example.betteradminapp.data.local.OfflineEventRepository
 import com.example.betteradminapp.data.local.OfflineMessageRepository
 import com.example.betteradminapp.data.local.OfflinePupilRepository
 import com.example.betteradminapp.data.local.OfflineTeacherRepository
@@ -14,6 +15,7 @@ interface AppContainer {
     val courseRepository: CourseRepository
     val enrollmentRepository: EnrollmentRepository
     val messageRepository: MessageRepository
+    val eventRepository: EventRepository
 }
 
 class AppDataContainer(private val context: Context) : AppContainer {
@@ -31,5 +33,8 @@ class AppDataContainer(private val context: Context) : AppContainer {
     }
     override val messageRepository: MessageRepository by lazy {
         OfflineMessageRepository(BetterAdminDatabase.getDatabase(context).messageDao())
+    }
+    override val eventRepository: EventRepository by lazy {
+        OfflineEventRepository(BetterAdminDatabase.getDatabase(context).eventDao())
     }
 }

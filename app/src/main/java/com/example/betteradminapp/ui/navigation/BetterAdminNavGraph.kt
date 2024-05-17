@@ -12,6 +12,8 @@ import com.example.betteradminapp.ui.home.HomeDestination
 import com.example.betteradminapp.ui.home.HomeScreen
 import com.example.betteradminapp.ui.screens.CourseDestination
 import com.example.betteradminapp.ui.screens.CourseScreen
+import com.example.betteradminapp.ui.screens.EventDestination
+import com.example.betteradminapp.ui.screens.EventScreen
 import com.example.betteradminapp.ui.screens.MainDestination
 import com.example.betteradminapp.ui.screens.MainScreen
 import com.example.betteradminapp.ui.screens.MessageDestination
@@ -50,7 +52,7 @@ fun BetterAdminNavHost(
                 navigateToMain = { navController.navigate(MainDestination.route) },
                 navigateToCourse = { navController.navigate(CourseDestination.route) },
                 navigateToMessage = { navController.navigate(MessageDestination.route) },
-                navigateToEvent = { /* TODO */ },
+                navigateToEvent = { navController.navigate(EventDestination.route) },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
                 navigateUp = { navController.navigateUp() },
                 setUnreadMessages = setUnreadMessages,
@@ -63,7 +65,7 @@ fun BetterAdminNavHost(
                 navigateToMain = { navController.navigate(MainDestination.route) },
                 navigateToCourse = { navController.navigate(CourseDestination.route) },
                 navigateToMessage = { navController.navigate(MessageDestination.route) },
-                navigateToEvent = { /* TODO */ },
+                navigateToEvent = { navController.navigate(EventDestination.route) },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
                 navigateUp = { navController.navigateUp() },
                 unreadMessages = unreadMessages
@@ -75,7 +77,7 @@ fun BetterAdminNavHost(
                 navigateToMain = { navController.navigate(MainDestination.route) },
                 navigateToCourse = { navController.navigate(CourseDestination.route) },
                 navigateToMessage = { navController.navigate(MessageDestination.route) },
-                navigateToEvent = { /* TODO */ },
+                navigateToEvent = { navController.navigate(EventDestination.route) },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
                 navigateUp = { navController.navigateUp() },
                 navigateToSendMessage = { navController.navigate(SendMessageDestination.route) },
@@ -89,13 +91,25 @@ fun BetterAdminNavHost(
                 navigateUp = { navController.navigateUp() }
             )
         }
+        composable(route = EventDestination.route) {
+            EventScreen(
+                windowSize = windowSize,
+                navigateToMain = { navController.navigate(MainDestination.route) },
+                navigateToCourse = { navController.navigate(CourseDestination.route) },
+                navigateToMessage = { navController.navigate(MessageDestination.route) },
+                navigateToEvent = { navController.navigate(EventDestination.route) },
+                navigateToSettings = { navController.navigate(SettingsDestination.route) },
+                navigateUp = { navController.navigateUp() },
+                unreadMessages = unreadMessages
+            )
+        }
         composable(route = SettingsDestination.route) {
             SettingsScreen(
                 windowSize = windowSize,
                 navigateToMain = { navController.navigate(MainDestination.route) },
                 navigateToCourse = { navController.navigate(CourseDestination.route) },
                 navigateToMessage = { navController.navigate(MessageDestination.route) },
-                navigateToEvent = { /* TODO */ },
+                navigateToEvent = { navController.navigate(EventDestination.route) },
                 navigateToSettings = { navController.navigate(SettingsDestination.route) },
                 navigateUp = { navController.navigateUp() },
                 onThemeUpdated = onThemeUpdated,

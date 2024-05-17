@@ -10,17 +10,17 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.betteradminapp.BetterAdminApplication
 import com.example.betteradminapp.ui.home.HomeViewModel
 import com.example.betteradminapp.ui.screens.CourseViewModel
+import com.example.betteradminapp.ui.screens.EventViewModel
 import com.example.betteradminapp.ui.screens.MainViewModel
 import com.example.betteradminapp.ui.screens.MessageViewModel
 import com.example.betteradminapp.ui.screens.SendMessageViewModel
 
 /**
- * Provides Factory to create instance of ViewModel for the entire Inventory app
+ * Provides Factory to create instance of ViewModel for the entire BetterAdmin app
  */
 object AppViewModelProvider {
     @RequiresApi(Build.VERSION_CODES.O)
     val Factory = viewModelFactory {
-        // Initializer for HomeViewModel
         initializer {
             HomeViewModel(
                 pupilRepository = betterAdminApplication().container.pupilRepository,
@@ -55,6 +55,11 @@ object AppViewModelProvider {
                 teacherRepository = betterAdminApplication().container.teacherRepository,
                 messageRepository = betterAdminApplication().container.messageRepository,
                 userPreferencesRepository = betterAdminApplication().userPreferencesRepository
+            )
+        }
+        initializer {
+            EventViewModel(
+                eventRepository = betterAdminApplication().container.eventRepository
             )
         }
     }
