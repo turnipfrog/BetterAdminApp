@@ -2,8 +2,10 @@ package com.example.betteradminapp.ui.screens
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,12 +31,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -47,6 +51,7 @@ import com.example.betteradminapp.ui.navigation.NavigationDestination
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Locale
 
@@ -123,56 +128,69 @@ fun CalendarWithEvents(events: List<Event>) {
     // MutableState for selected date events
     val selectedDateEvents = remember { mutableStateOf<List<Event>>(listOf()) }
 
+    // Remember the PagerState
+    val pagerState = rememberPagerState(initialPage = Int.MAX_VALUE / 2)
+
+    val scope = rememberCoroutineScope()
+
     // UI Layout
-    HorizontalPager(
-        count = Int.MAX_VALUE,
-        modifier = Modifier.fillMaxSize(),
-        state = rememberPagerState(initialPage = Int.MAX_VALUE / 2),
-        verticalAlignment = Alignment.Top
-    ) { page ->
-        val month = currentMonth.value.clone() as Calendar
-        month.add(Calendar.MONTH, page - Int.MAX_VALUE / 2)
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
-            // Display month and year
-            Text(
-                text = "${month.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())} ${month.get(Calendar.YEAR)}",
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-
-            // Calendar controls
-            CalendarControls(currentMonth, page)
-
-            // Calendar grid with events
-            val daysInMonth = month.getActualMaximum(Calendar.DAY_OF_MONTH)
-            val days = (1..daysInMonth).toList()
-            CalendarGrid(events, month, selectedDateEvents)
-
-            // Display events for selected date at the bottom
-            EventList(selectedDateEvents.value)
-        }
-    }
-}
-
-@Composable
-fun CalendarControls(currentMonth: MutableState<Calendar>, currentPage: Int) {
-    Row(
-        horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
     ) {
-        IconButton(onClick = {
-            currentMonth.value.add(Calendar.MONTH, -1)
-        }) {
-            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Previous Month")
+        // Display month and year
+        val month = currentMonth.value.clone() as Calendar
+        month.add(Calendar.MONTH, pagerState.currentPage - Int.MAX_VALUE / 2)
+        Text(
+            text = "${month.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale("da"))} ${month.get(Calendar.YEAR)}",
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        // Calendar controls
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()
+        ) {
+            IconButton(onClick = {
+                scope.launch {
+                    pagerState.scrollToPage(pagerState.currentPage - 1)
+                }
+            }) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Previous Month")
+            }
+            IconButton(onClick = {
+                scope.launch {
+                    pagerState.scrollToPage(pagerState.currentPage + 1)
+                }
+            }) {
+                Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Next Month")
+            }
         }
-        IconButton(onClick = {
-            currentMonth.value.add(Calendar.MONTH, 1)
-        }) {
-            Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Next Month")
+
+        // HorizontalPager for calendar
+        HorizontalPager(
+            count = Int.MAX_VALUE,
+            modifier = Modifier.fillMaxSize(),
+            state = pagerState,
+            verticalAlignment = Alignment.Top
+        ) { page ->
+            val pagerMonth = currentMonth.value.clone() as Calendar
+            pagerMonth.add(Calendar.MONTH, page - Int.MAX_VALUE / 2)
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                // Calendar grid with events
+                val daysInMonth = pagerMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
+                val days = (1..daysInMonth).toList()
+                CalendarGrid(events, pagerMonth, selectedDateEvents)
+
+                // Display events for selected date at the bottom
+                EventList(selectedDateEvents.value)
+            }
         }
     }
 }
