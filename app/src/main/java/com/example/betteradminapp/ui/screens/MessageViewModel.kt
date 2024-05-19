@@ -49,7 +49,7 @@ class MessageViewModel(
 //                            "Integer sodales rutrum convallis. Aliquam facilisis gravida leo. " +
 //                            "Donec ut magna vel nisl auctor tristique. Ut sit amet ultrices velit, " +
 //                            "ut consectetur diam. Etiam iaculis eleifend diam ut feugiat.",
-//                    timeSent = Date(2024, 6, 3, 14, 2, 0),
+//                    timeSent = Date(124, 6, 3, 14, 2, 0),
 //                    receiverEmail = "test@test.dk",
 //                    senderEmail = "Saksepigen@musik.dk",
 //                    isNew = true
@@ -75,7 +75,7 @@ class MessageViewModel(
 //                            "Maecenas ipsum dui, bibendum ut ex vel, dictum facilisis metus. " +
 //                            "Aenean euismod tempor ultricies. Praesent imperdiet rhoncus felis non posuere. " +
 //                            "Ut eu ante a orci tristique convallis vitae mollis quam.",
-//                    timeSent = Date(2024, 6, 3, 12, 0, 0),
+//                    timeSent = Date(124, 6, 3, 12, 0, 0),
 //                    receiverEmail = "test@test.dk",
 //                    senderEmail = "Saksepigen@musik.dk",
 //                    isNew = true

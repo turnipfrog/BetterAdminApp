@@ -261,7 +261,7 @@ fun MessageCard(
     descriptionFontSize: TextUnit = MaterialTheme.typography.titleSmall.fontSize,
     descriptionFontWeight: FontWeight = FontWeight.Normal,
     descriptionMaxLines: Int = 50,
-    shape: Shape = RoundedCornerShape(4.dp),
+    shape: Shape = RoundedCornerShape(16.dp),
     padding: Dp = 12.dp
 ) {
     var expandedState by remember { mutableStateOf(false) }

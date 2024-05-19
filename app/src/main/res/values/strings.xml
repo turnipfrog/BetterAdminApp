@@ -16,7 +16,7 @@
     <string name="nav_bar_events">Events</string>
     <string name="nav_bar_settings">Settings</string>
     <string name="error_something_went_wrong">Noget er gået galt</string>
-    <string name="enrolled_courses">Tilmeldte fag:</string>
+    <string name="enrolled_courses">Tilmeldte fag</string>
     <string name="button_sent">Sendt</string>
     <string name="button_received">Modtaget</string>
     <string name="new_message">Ny besked</string>
@@ -31,4 +31,11 @@
     <string name="content_missing">Tomme beskeder kan ikke sendes</string>
     <string name="message_sent">Beskeden er sendt</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="phone">Telefon</string>
+    <string name="enrollment_date">Tilmeldingsdato</string>
+    <string name="note">Note</string>
+    <string name="school">Skole</string>
+    <string name="city">By</string>
+    <string name="road">Vej</string>
+    <string name="postal_code">Postnummer</string>
 </resources>
