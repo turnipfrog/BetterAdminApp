@@ -49,8 +49,10 @@ import com.example.betteradminapp.BetterAdminBottomNavigationBar
 import com.example.betteradminapp.BetterAdminTopAppBar
 import com.example.betteradminapp.R
 import com.example.betteradminapp.data.model.Course
+import com.example.betteradminapp.data.tools.DateTools
 import com.example.betteradminapp.ui.AppViewModelProvider
 import com.example.betteradminapp.ui.navigation.NavigationDestination
+import java.util.Locale
 
 object CourseDestination : NavigationDestination {
     override val route = "course"
@@ -187,7 +189,7 @@ fun ExpandableCard(
                 )
                 Text(
                     modifier = Modifier.weight(3f),
-                    text = course.startDate.toString().dropLast(4)
+                    text = DateTools.formatDate(course.startDate, "dd/MM\nH:mm", Locale("da-DK"))
                 )
                 IconButton(
                     modifier = Modifier

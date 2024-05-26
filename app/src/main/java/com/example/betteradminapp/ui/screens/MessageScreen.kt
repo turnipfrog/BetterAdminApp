@@ -66,9 +66,12 @@ import com.example.betteradminapp.BetterAdminBottomNavigationBar
 import com.example.betteradminapp.BetterAdminTopAppBar
 import com.example.betteradminapp.R
 import com.example.betteradminapp.data.model.Message
+import com.example.betteradminapp.data.tools.DateTools
 import com.example.betteradminapp.ui.AppViewModelProvider
 import com.example.betteradminapp.ui.navigation.NavigationDestination
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 object MessageDestination : NavigationDestination {
     override val route = "message"
@@ -327,7 +330,7 @@ fun MessageCard(
                 }
                 Text(
                     modifier = Modifier.weight(3f),
-                    text = message.timeSent.toString(),
+                    text = DateTools.formatDate(message.timeSent, "HH:mm:ss\nMM-dd-yyyy", Locale("da-DK")),
                 )
                 IconButton(
                     modifier = Modifier

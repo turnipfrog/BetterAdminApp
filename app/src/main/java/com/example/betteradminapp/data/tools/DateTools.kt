@@ -2,10 +2,12 @@ package com.example.betteradminapp.data.tools
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Date
+import java.util.Locale
 
 
 object DateTools {
@@ -32,5 +34,10 @@ object DateTools {
                 .atZone(ZoneId.systemDefault())
                 .toInstant()
         )
+    }
+
+    fun formatDate(date: Date, pattern: String, locale: Locale): String {
+        val dateFormat = SimpleDateFormat(pattern, locale)
+        return dateFormat.format(date)
     }
 }
